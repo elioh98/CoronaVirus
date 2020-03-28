@@ -1,19 +1,18 @@
-from covid import Covid
+from covid.api import CovId19Data
 
-covid = Covid(source="worldometers")
+api = CovId19Data(force=True)
+
 exist = False
 
 while not exist:
     con = False
     x = input("Input your desired country name \n")
-    if x.lower()  in covid.list_countries() :
-        s = covid.get_status_by_country_name(x.lower())
-        print("Country :" ,s["country"])
+    if  api.filter_by_country(x.lower())  :
+        s = api.filter_by_country(x.lower())
+        print("Country :" ,s["label"])
         print("Confirmed :" , s["confirmed"])
-        print("New cases :",s["new_cases"])
         print("Deaths :",s["deaths"])
         print("Recovered :",s["recovered"])
-        print("Active :",s["active"])
         while not con :
             z = input("Do you want to see more countries ? y/n \n")
             if z[0].lower() == "y":
